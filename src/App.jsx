@@ -14,8 +14,16 @@ export const App = () => {
 
         await fetch('https://swapi.dev/api/people')
         .then((res) => res.json())
-        .then((respuesta) => setLista(respuesta.results))
-
+        .then((respuesta) => {
+          const listaActualizada = respuesta.results.map((element, index) => {
+            return {
+              ...element,
+              img: "https://starwars-visualguide.com/assets/img/characters/"+(index+1)+".jpg"
+            };
+          });
+          setLista(listaActualizada)
+        });
+        console.log(lista);
     } catch (error) {
       console.log(`Error: ${error}`)
     }
@@ -26,7 +34,9 @@ export const App = () => {
 
   return (
     <div>
-
+      <div id='divImg'>
+        <img id="img" src="./src/img/602bb8655c5b2300043add95.png" alt=""/>
+      </div>
       <div style={{textAlign:"center", margin:'10px'}} >
        <Button style={{color:'black', backgroundColor:'#ffeb00', borderColor:'#ffeb00'}} onClick={mostrar} >Obtener Personajes</Button>
       </div>
